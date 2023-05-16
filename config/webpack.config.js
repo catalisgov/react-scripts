@@ -345,6 +345,11 @@ module.exports = function (webpackEnv) {
           babelRuntimeRegenerator,
         ]),
       ],
+      fallback: {
+        fs: false,
+        path: false,
+        buffer: require.resolve('buffer/'),
+      },
     },
     module: {
       strictExportPresence: true,
@@ -788,6 +793,9 @@ module.exports = function (webpackEnv) {
             },
           },
         }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
